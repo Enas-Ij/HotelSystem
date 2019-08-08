@@ -21,7 +21,7 @@
     To: <input type="date" name="toDate"   id="toDate" >
 
 
-    <input type="submit" value="Find Room">
+    <input type="submit" value="Find room">
 </form><br><br>
 
 

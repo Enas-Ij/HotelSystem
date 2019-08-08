@@ -1,9 +1,9 @@
 package Controllers;
 
-import DAO.CostumerLoginDAO;
-import DAO.ReservationDAO;
-import DAO.RoomDetailsDAO;
-import SystemActors.Costumer;
+import root.login.dao.CostumerLoginDAO;
+import root.reservation.dao.ReservationDAO;
+import root.reservation.room.dao.RoomDetailsDAO;
+import root.actors.Costumer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;

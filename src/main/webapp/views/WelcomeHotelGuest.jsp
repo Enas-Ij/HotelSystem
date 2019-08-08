@@ -1,4 +1,4 @@
-<%@ page import="SystemActors.Costumer" %><%--
+<%@ page import="root.actors.Costumer" %><%--
   Created by IntelliJ IDEA.
   User: Home
   Date: 7/31/2019
@@ -19,7 +19,7 @@ Guest<br>
 
 <a href=/views/FindRoom.jsp> Find & Reserve </a><br>
 <a href=/viewReservedRooms> View your booked rooms</a><br>
-<a href=/ViewRestaurant> Restaurant</a><br>
+<a href=/ViewRestaurant> root.restaurant</a><br>
 
 </body>
 </html>

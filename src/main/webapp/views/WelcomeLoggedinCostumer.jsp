@@ -1,4 +1,4 @@
-<%@ page import="SystemActors.Costumer" %><%--
+<%@ page import="root.actors.Costumer" %><%--
   Created by IntelliJ IDEA.
   User: Home
   Date: 8/2/2019

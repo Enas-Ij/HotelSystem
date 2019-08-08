@@ -1,4 +1,4 @@
-<%@ page import="Restaurant.Order" %>
+<%@ page import="root.restaurant.order.Order" %>
 <%@ page import="java.util.Map" %>
 <%--
   Created by IntelliJ IDEA.

@@ -29,39 +29,39 @@ http://www.springframework.org/schema/mvc/spring-mvc.xsd">
         <property name="dataSource" ref="dataSourceBean"/>
     </bean>
 
-    <bean id="costumerDAO" class="DAO.CostumerDAO" autowire="byName"/>
-    <bean id="permissionDAO" class="DAO.PermissionCostumerDAO" autowire="byName"/>
-    <bean id="costumerLoginDAO" class="DAO.CostumerLoginDAO" autowire="byName"/>
-    <bean id="roomDetailsDAO" class="DAO.RoomDetailsDAO" autowire="byName"/>
-    <bean id="roomsDAO" class="DAO.RoomsDAO" autowire="byName"/>
-    <bean id="reservationDAO" class="DAO.ReservationDAO" autowire="byName"/>
-    <bean id="menuDAO" class="DAO.MenuDAO" autowire="byName"/>
-    <bean id="orderDAO" class="DAO.OrderDAO" autowire="byName"/>
-    <bean id="orderItemsDAO" class="DAO.OrderItemsDAO" autowire="byName"/>
+    <bean id="costumerDAO" class="root.login.dao.CostumerDAO" autowire="byName"/>
+    <bean id="permissionDAO" class="root.permission.dao.PermissionCostumerDAO" autowire="byName"/>
+    <bean id="costumerLoginDAO" class="root.login.dao.CostumerLoginDAO" autowire="byName"/>
+    <bean id="roomDetailsDAO" class="root.reservation.room.dao.RoomDetailsDAO" autowire="byName"/>
+    <bean id="roomsDAO" class="root.reservation.room.dao.RoomsDAO" autowire="byName"/>
+    <bean id="reservationDAO" class="root.reservation.dao.ReservationDAO" autowire="byName"/>
+    <bean id="menuDAO" class="root.restaurant.menu.dao.MenuDAO" autowire="byName"/>
+    <bean id="orderDAO" class="root.restaurant.order.dao.OrderDAO" autowire="byName"/>
+    <bean id="orderItemsDAO" class="root.restaurant.order.dao.OrderItemsDAO" autowire="byName"/>
 
 
 
     <bean id="emailChecker" class="Checkers.EmailChecker" autowire="byName"/>
     <bean id="passwordChecker" class="Checkers.PasswordChecker" autowire="byName"/>
     <bean id="loginTryTimesChecker" class="Checkers.LoginTryTimesChecker" autowire="byName"/>
-    <bean id="permissionStringMapper" class="Checkers.PermissionStringMapper" autowire="byName"/>
+    <bean id="permissionStringMapper" class="root.permission.PermissionStringMapper" autowire="byName"/>
 
     <bean id="timeFormat" class="Checkers.TimeFormat" autowire="byName"/>
 
 
-    <bean id="rooms" class="Room.Rooms" autowire="byName"/>
-    <bean id="availableRooms" class="Room.AvailableRooms" autowire="byName"/>
-    <bean id="menu" class="Restaurant.Menu" autowire="byName"/>
+    <bean id="rooms" class="room.Rooms" autowire="byName"/>
+    <bean id="availableRooms" class="room.AvailableRooms" autowire="byName"/>
+    <bean id="menu" class="root.restaurant.Menu" autowire="byName"/>
 
-    <bean id="findRoomControl" class="Controllers.ControlClasses.FindRoomControl" autowire="byName"/>
-    <bean id="reservationControl" class="Controllers.ControlClasses.ReservationControl" autowire="byName"/>
-    <bean id="viewReservedRoomsControl" class="Controllers.ControlClasses.ViewReservedRoomsControl" autowire="byName"/>
-    <bean id="restaurantControl" class="Controllers.ControlClasses.RestaurantControl" autowire="byName"/>
-    <bean id="orderPriceControl" class="Controllers.ControlClasses.OrderPriceControl" autowire="byName"/>
-    <bean id="orderControl" class="Controllers.ControlClasses.OrderControl" autowire="byName"/>
+    <bean id="findRoomControl" class="root.reservation.service.FindRoomService" autowire="byName"/>
+    <bean id="reservationControl" class="root.reservation.service.ReservationService" autowire="byName"/>
+    <bean id="viewReservedRoomsControl" class="root.reservation.reserved.rooms.service.ViewReservedRoomsService" autowire="byName"/>
+    <bean id="restaurantControl" class="root.restaurant.service.RestaurantService" autowire="byName"/>
+    <bean id="orderPriceControl" class="root.restaurant.order.service.OrderPriceService" autowire="byName"/>
+    <bean id="orderControl" class="root.restaurant.order.service.OrderService" autowire="byName"/>
 
 
-    <bean id="orderPriceCalculator" class="Restaurant.OrderPriceCalculator" autowire="byName" />
+    <bean id="orderPriceCalculator" class="root.restaurant.order.OrderPriceCalculator" autowire="byName" />
 
 
 </beans>

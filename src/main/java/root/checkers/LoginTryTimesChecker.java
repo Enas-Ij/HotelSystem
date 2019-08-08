@@ -1,4 +1,4 @@
-package Checkers;
+package root.checkers;
 
 import javax.servlet.http.HttpSession;
 

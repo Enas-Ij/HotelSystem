@@ -1,6 +1,6 @@
 package root.signup.controller;
 
-import Checkers.EmailChecker;
+import root.checkers.EmailChecker;
 import root.permission.PermissionType;
 import root.login.dao.CostumerDAO;
 import root.login.dao.CostumerLoginDAO;
@@ -38,11 +38,11 @@ public class SignUpController {
         //checks if there is another account with the same email if so go to SomeThingIsWrong and show the Massege
         if (emailChecker.isExists(costumer.getEmail())){
             String htmlMassage="<h3>Your email is already used in another Account<h3/>"
-                    +"<a href=\"views/LogIn.jsp\"> Login </a><br>"
+                    +"<a href=\"views/Login.jsp\"> Login </a><br>"
                     +"<a href=\"views/SignUp.jsp\"> SignUp </a><br>";
             modelMap.addAttribute("message",htmlMassage);
 
-            return "SomeThingIsWrong";
+            return "SomethingIsWrong";
         }
 
         //Insert the account info to the database,give the user LOGGED_IN_COSTUMER root.permission

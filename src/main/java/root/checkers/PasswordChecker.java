@@ -1,4 +1,4 @@
-package Checkers;
+package root.checkers;
 
 import root.login.dao.CostumerDAO;
 import org.springframework.beans.factory.annotation.Autowired;

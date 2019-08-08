@@ -53,7 +53,7 @@
 
        htmlOutput="<table> <tr> <th>Reservation Id</th> <th>room number</th> " +
               "<th>From Date</th>  <th>To Date</th> < </tr>";
-      for (Integer root.reservation: reservationIdRoomMap.keySet() ) {
+      for (Integer reservation: reservationIdRoomMap.keySet() ) {
 
                   htmlOutput+=" <tr> <td>"+reservation+"</td>"+
                           "<td> "+reservationIdRoomMap.get(reservation)+" </td>"+

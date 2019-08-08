@@ -65,8 +65,8 @@ insert into roomReservation (costumerId,RoomNumber,fromDate, toDate) values(1,"1
 
 create table Roles ( role_name varchar(128) primary key not null);
 insert into Roles values('General Manger');
-insert into Roles values('Restaurant Manger');
-insert into Roles values('Restaurant Employee');
+insert into Roles values('root.restaurant Manger');
+insert into Roles values('root.restaurant Employee');
 
 
 create table employee(

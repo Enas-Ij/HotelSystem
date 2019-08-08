@@ -1,4 +1,4 @@
-<%@ page import="room.Rooms" %>
+<%@ page import="root.reservation.room.Rooms" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.io.PrintWriter" %>
 <%@ page import="org.springframework.beans.factory.annotation.Autowired" %><%--

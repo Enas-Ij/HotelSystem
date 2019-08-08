@@ -1,4 +1,4 @@
-package room;
+package root.reservation.room ;
 
 import root.reservation.room.dao.RoomDetailsDAO;
 import root.reservation.room.dao.RoomsDAO;

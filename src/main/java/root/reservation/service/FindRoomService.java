@@ -1,8 +1,8 @@
 package root.reservation.service;
 
 import root.reservation.dao.ReservationDAO;
-import room.AvailableRooms;
-import room.Rooms;
+import root.reservation.room.AvailableRooms;
+import root.reservation.room.Rooms;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.ModelAndView;
 

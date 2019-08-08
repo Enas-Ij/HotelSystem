@@ -3,7 +3,7 @@ package root.reservation.service;
 import root.permission.PermissionType;
 import root.permission.dao.PermissionCostumerDAO;
 import root.reservation.dao.ReservationDAO;
-import room.Rooms;
+import root.reservation.room.Rooms;
 import root.actors.Costumer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.ModelAndView;

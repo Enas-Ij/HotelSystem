@@ -1,4 +1,4 @@
-package room;
+package root.reservation.room;
 
 import root.reservation.dao.ReservationDAO;
 import org.springframework.beans.factory.annotation.Autowired;

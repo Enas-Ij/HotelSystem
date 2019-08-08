@@ -31,7 +31,7 @@
     <input type="button" value="Sign Up" onclick="checkFields()"><br>
 </form>
 
-<br> already have an account? <a href=/views/Login.jsp> root.login </a><br>
+<br> already have an account? <a href=/views/Login.jsp> login </a><br>
 
 
 <script>

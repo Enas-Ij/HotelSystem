@@ -1,8 +1,8 @@
 package root.login.controller;
 
-import Checkers.EmailChecker;
-import Checkers.LoginTryTimesChecker;
-import Checkers.PasswordChecker;
+import root.checkers.EmailChecker;
+import root.checkers.LoginTryTimesChecker;
+import root.checkers.PasswordChecker;
 import root.permission.PermissionType;
 import root.login.dao.CostumerDAO;
 import root.login.dao.CostumerLoginDAO;
@@ -40,7 +40,7 @@ import java.util.Date;
     ReservationDAO reservationDAO;
 
 
-        @RequestMapping(value = "/root/login", method = RequestMethod.POST)
+        @RequestMapping(value = "login", method = RequestMethod.POST)
         public String login(ModelMap modelMap, @RequestParam String email,
                             @RequestParam String password, HttpServletRequest request){
 

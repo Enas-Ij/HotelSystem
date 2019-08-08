@@ -10,7 +10,7 @@ http://www.springframework.org/schema/context
 http://www.springframework.org/schema/context/spring-context.xsd
 http://www.springframework.org/schema/mvc
 http://www.springframework.org/schema/mvc/spring-mvc.xsd">
-    <context:component-scan base-package="Controllers" />
+    <context:component-scan base-package="root" />
     <mvc:annotation-driven/>
 
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -41,16 +41,16 @@ http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
 
 
-    <bean id="emailChecker" class="Checkers.EmailChecker" autowire="byName"/>
-    <bean id="passwordChecker" class="Checkers.PasswordChecker" autowire="byName"/>
-    <bean id="loginTryTimesChecker" class="Checkers.LoginTryTimesChecker" autowire="byName"/>
+    <bean id="emailChecker" class="root.checkers.EmailChecker" autowire="byName"/>
+    <bean id="passwordChecker" class="root.checkers.PasswordChecker" autowire="byName"/>
+    <bean id="loginTryTimesChecker" class="root.checkers.LoginTryTimesChecker" autowire="byName"/>
     <bean id="permissionStringMapper" class="root.permission.PermissionStringMapper" autowire="byName"/>
 
-    <bean id="timeFormat" class="Checkers.TimeFormat" autowire="byName"/>
+    <bean id="timeFormat" class="root.checkers.TimeFormat" autowire="byName"/>
 
 
-    <bean id="rooms" class="room.Rooms" autowire="byName"/>
-    <bean id="availableRooms" class="room.AvailableRooms" autowire="byName"/>
+    <bean id="rooms" class="root.reservation.room.Rooms" autowire="byName"/>
+    <bean id="availableRooms" class="root.reservation.room.AvailableRooms" autowire="byName"/>
     <bean id="menu" class="root.restaurant.Menu" autowire="byName"/>
 
     <bean id="findRoomControl" class="root.reservation.service.FindRoomService" autowire="byName"/>

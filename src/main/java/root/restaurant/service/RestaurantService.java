@@ -24,7 +24,7 @@ public class RestaurantService {
         }
 
         modelAndView=addModel(modelAndView);
-        modelAndView.setViewName("restaurant");
+        modelAndView.setViewName("Restaurant");
         return modelAndView;
 
     }

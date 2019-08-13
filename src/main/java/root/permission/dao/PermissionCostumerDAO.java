@@ -29,7 +29,6 @@ public class PermissionCostumerDAO {
 
 
     public int insert(int id,PermissionType permissionType) {
-        System.out.println("in  Permission DAO");
 
        String permission= permissionStringMapper.PremissionToString(permissionType);
 

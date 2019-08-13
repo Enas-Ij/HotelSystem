@@ -18,7 +18,7 @@
 <a href=/views/Login.jsp> Login </a><br>
 <a href=/views/SignUp.jsp> SignUp </a><br>
 <a href=/views/FindRoom.jsp> Find & Reserve room</a><br>
-<a href=/views/LogInEmployees.jsp> LogIn Employees </a><br>
+<a href=/views/EmployeeLogin.jsp> LogIn Employees </a><br>
 
 
 </body>

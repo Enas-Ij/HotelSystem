@@ -1,6 +1,5 @@
 package Controllers;
 
-import root.login.dao.CostumerLoginDAO;
 import root.reservation.dao.ReservationDAO;
 import root.reservation.room.dao.RoomDetailsDAO;
 import root.actors.Costumer;
@@ -26,8 +25,6 @@ import java.util.Map;
 public class testController {
     @Autowired
     RoomDetailsDAO roomDetailsDAO;
-    @Autowired
-    CostumerLoginDAO costumerLoginDAO;
     @Autowired
     ReservationDAO reservationDAO;
 
@@ -64,7 +61,6 @@ public class testController {
         Costumer costumer=new Costumer();
         costumer.setId(1);
         reservationDAO.insert(costumer,"101",new Date(),new Date());
-        costumerLoginDAO.insert(costumer,new Date());
         return "test";
     }
 

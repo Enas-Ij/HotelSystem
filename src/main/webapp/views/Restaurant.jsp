@@ -76,6 +76,38 @@
 
         <%= output() %>
 <br><br><h3 id="total_price"></h3>
+
+    <%!
+        // declare the variables
+        List<Integer> currentReservations;
+        Map<Integer, String> reservationRoomMap;
+
+    %>
+
+    <%
+        //bring the variables values from the model that is in the request
+        currentReservations=(List) request.getAttribute("currentReservations");
+        reservationRoomMap= (Map)request.getAttribute("reservationRoomMap");
+    %>
+    <%!
+        //dynamically creating table that represent the radio button that presents the costumer
+        //current reservations
+        String outputRadioButtons(){
+            String htmlOutput="Delivery to room: <br>";
+            for (Integer reservationId: currentReservations ) {
+                htmlOutput+=" <input type=\'radio\' name=\'reservationId\' value=\'"+reservationId+"\'> "
+                        + reservationRoomMap.get(reservationId);
+
+            }
+            return htmlOutput;
+        }
+
+    %>
+
+    <%= outputRadioButtons() %>
+
+
+
  <br> <input type="submit" value="confirm">
 </form>
 

@@ -9,6 +9,8 @@ import org.springframework.jdbc.core.RowMapper;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 
@@ -18,21 +20,23 @@ public class OrderDAO {
     JdbcTemplate jdbcTemplate;
 
     private static final String INSERT="insert into RestaurantOrder" +
-            "(costumerid,orderTotal,ReservationId, status ) " +
-            " values(?,?,?,?)";
+            "(costumerid,orderTotal,ReservationId,orderTime, status ) " +
+            " values(?,?,?,?,?)";
     private static final String SELECT_ORDER_ID="select orderid" +
             " from RestaurantOrder where costumerid=? and abs(orderTotal-?)<0.001";
 
 
 
-    public int insert(Costumer costumer, Integer reservationId, Float total, String status){
+    public int insert(Integer costumerId, Integer reservationId, Float total
+            , Date orderTime, String status){
 
-        return jdbcTemplate.update(INSERT, costumer.getId(), total, reservationId, status);
+        Timestamp timestamp=  new Timestamp(orderTime.getTime());
+        return jdbcTemplate.update(INSERT,costumerId, total, reservationId, timestamp, status);
     }
 
 
 
-    public  int selectOrderId(final Costumer costumer, final Float total){
+    public  int selectOrderId(final Integer costumerId, final Float total){
 
         List<Integer> orderIdList= jdbcTemplate.query(SELECT_ORDER_ID
 
@@ -41,7 +45,7 @@ public class OrderDAO {
 
                     @Override
                     public void setValues(PreparedStatement preparedStatement) throws SQLException {
-                        preparedStatement.setInt(1,costumer.getId());
+                        preparedStatement.setInt(1,costumerId);
                         preparedStatement.setFloat(2,total);
                     }
                 }

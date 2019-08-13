@@ -24,7 +24,7 @@ public class ReservationDAO {
             " values(?,?,?,?)";
 
     private static final String CANCEL="delete from roomReservation" +
-            "where costumerId =? and rooRoomNumber=? and fromDate=? and to Date=?";
+            "where costumerId =? and rooRoomNumber=? and fromDate=? and toDate=?";
 
     private static final String SLCT_AVLBL_ROOMS="select DISTINCT RoomNumber from roomReservation " +
             "where RoomNumber not in (select DISTINCT RoomNumber from roomReservation where" +
@@ -39,10 +39,12 @@ public class ReservationDAO {
             "select DISTINCT toDate from roomReservation where ReservationId=?";
     private static final String SLCT_FROMDATE=
             "select DISTINCT fromDate from roomReservation where ReservationId=?";
+    private static final String SLCT_CSTMER_CURRENT_ROOMS="select DISTINCT ReservationId from roomReservation " +
+            "where costumerId=? and fromDate<=? and toDate>=?";
 
 
 
-
+    //insert new reservation to the db
     public int insert(Costumer costumer, String roomNum, Date fromDate, Date toDate){
 
         java.sql.Date sqlFromDate= new java.sql.Date(fromDate.getTime());
@@ -52,6 +54,7 @@ public class ReservationDAO {
     }
 
 
+    //delete reservation to the db
     public int cancel(Costumer costumer, String roomNum, Date fromDate, Date toDate){
 
         java.sql.Date sqlFromDate= new java.sql.Date(fromDate.getTime());
@@ -61,6 +64,7 @@ public class ReservationDAO {
     }
 
 
+    //return a list of the available room numbers (that are not reserved) on certain dates
     public List<String> selectAvailableRooms(final Date fromDate, Date toDate){
 
         final java.sql.Date sqlFromDate= new java.sql.Date(fromDate.getTime());
@@ -96,7 +100,8 @@ public class ReservationDAO {
 
 
 
-    public List<Integer> selectReservationId(final Costumer costumer){
+    //return a list of current and future reservations of the costumer
+    public List<Integer> selectReservationId(final Integer costumerId){
 
 
         Date date= new Date();
@@ -109,7 +114,7 @@ public class ReservationDAO {
 
                     @Override
                     public void setValues(PreparedStatement preparedStatement) throws SQLException {
-                        preparedStatement.setInt(1,costumer.getId());
+                        preparedStatement.setInt(1,costumerId);
                         preparedStatement.setDate(2,sqlToday);
 
                     }
@@ -131,14 +136,17 @@ public class ReservationDAO {
         return reservations;
     }
 
-    public Map<Integer,String> selectReservedRooms(final Costumer costumer){
+
+
+    //return a map of current and future reservations of the costumer and the room number for each reservation
+    public Map<Integer,String> selectReservedRooms(final Integer costumerId){
 
 
         Map<Integer,String> reservationIdRoomMap= new HashMap<>();
-        final List<Integer> reservations= selectReservationId(costumer) ;
+        final List<Integer> reservations= selectReservationId(costumerId) ;
 
         for (final Integer reservation : reservations ) {
-            List<String> roomList=        jdbcTemplate.query(SLCT_RSRVTION_ROOM
+            List<String> roomList=  jdbcTemplate.query(SLCT_RSRVTION_ROOM
 
 
                     , new PreparedStatementSetter() {
@@ -173,6 +181,7 @@ public class ReservationDAO {
 
 
 
+    // return the date in which the reservation starts
     public Date selectFromDate(final Integer reservationId){
 
 
@@ -208,6 +217,7 @@ public class ReservationDAO {
 
 
 
+    // return the date in which the reservation ends
     public Date selectToDate(final Integer reservationId){
 
 
@@ -238,5 +248,44 @@ public class ReservationDAO {
         Date toDate= new Date(toDateList.get(0).getTime());
 
         return toDate;
+    }
+
+
+    //return a list of current reservations of the costumer
+    public List<Integer> selectCurrentReservationId(final Integer costumerId){
+
+
+        Date date= new Date();
+        final java.sql.Date sqlToday= new java.sql.Date(date.getTime());
+
+        List<Integer> reservations= jdbcTemplate.query(SLCT_CSTMER_CURRENT_ROOMS
+
+
+                , new PreparedStatementSetter() {
+
+                    @Override
+                    public void setValues(PreparedStatement preparedStatement) throws SQLException {
+                        preparedStatement.setInt(1,costumerId);
+                        preparedStatement.setDate(2,sqlToday);
+                        preparedStatement.setDate(3,sqlToday);
+
+
+                    }
+                }
+
+
+                ,new RowMapper<Integer>() {
+
+                    @Override
+                    public Integer mapRow(ResultSet resultSet, int i) throws SQLException {
+                        Integer reservationId=resultSet.getInt("ReservationId");
+                        return reservationId;
+                    }}
+
+        );
+
+
+
+        return reservations;
     }
 }

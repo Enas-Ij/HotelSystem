@@ -1,12 +1,11 @@
-package root.login.controller;
+package root.login.Costumer.controller;
 
 import root.checkers.EmailChecker;
 import root.checkers.LoginTryTimesChecker;
 import root.checkers.PasswordChecker;
+import root.login.Costumer.service.CostumerLoginService;
 import root.permission.PermissionType;
-import root.login.dao.CostumerDAO;
-import root.login.dao.CostumerLoginDAO;
-import root.permission.dao.PermissionCostumerDAO;
+import root.login.Costumer.dao.CostumerDAO;
 import root.reservation.dao.ReservationDAO;
 import root.actors.Costumer;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.Date;
 
 
 @Controller
@@ -33,11 +31,9 @@ import java.util.Date;
     @Autowired
     LoginTryTimesChecker loginTryTimesChecker;
     @Autowired
-    PermissionCostumerDAO permissionCostumerDAO;
-    @Autowired
-    CostumerLoginDAO costumerLoginDAO;
-    @Autowired
     ReservationDAO reservationDAO;
+    @Autowired
+    CostumerLoginService costumerLoginService;
 
 
         @RequestMapping(value = "login", method = RequestMethod.POST)
@@ -53,8 +49,8 @@ import java.util.Date;
                 return "Login";
             }
 
-            //check if email exist
-            if (!emailChecker.isExists(email)){
+            //check if email exist and  passwords match
+            if (!emailChecker.isExistsCostumer(email) ||!passwordChecker.passwordCheckCostumer(email,password)){
 
                 modelMap.addAttribute("error"," Your root.login details don't seem right." +
                         " Check that your caps lock is off and try again. \n" +
@@ -62,24 +58,15 @@ import java.util.Date;
                 return "Login";
             }
 
-            //check if passwords match
-            if (!passwordChecker.passwordCheck(email,password)){
-                modelMap.addAttribute("error","Your root.login details don't seem right." +
-                        " Check that your caps lock is off and try again. \n" +
-                        "Careful! After five tries, you'll get locked out.");
-                return "Login";
-            }
 
             //Bring the costumer Info from the dataBase
-            Costumer costumer=costumerDAO.selectByEmail(email);
-            costumer.setPermissions(permissionCostumerDAO.selectList(costumer.getId()));
+            Costumer costumer=costumerLoginService.login(email, password);
             session.setAttribute("costumer",costumer);
-            costumerLoginDAO.insert(costumer,new Date());
 
-            //Check if the costumer has a root.reservation
+            //Check if the costumer has a reservation
             if (costumer.getPermissions().contains(PermissionType.HAS_A_RESERVATION)){
 
-                costumer.setReservationIdRoomMap(reservationDAO.selectReservedRooms(costumer));
+                costumer.setReservationIdRoomMap(reservationDAO.selectReservedRooms(costumer.getId()));
                 return "WelcomeHotelGuest";
             }
 

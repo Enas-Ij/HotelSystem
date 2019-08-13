@@ -2,8 +2,7 @@ package root.signup.controller;
 
 import root.checkers.EmailChecker;
 import root.permission.PermissionType;
-import root.login.dao.CostumerDAO;
-import root.login.dao.CostumerLoginDAO;
+import root.login.Costumer.dao.CostumerDAO;
 import root.permission.dao.PermissionCostumerDAO;
 import root.actors.Costumer;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.Date;
 
 @Controller
 public class SignUpController {
@@ -26,9 +24,6 @@ public class SignUpController {
     EmailChecker emailChecker;
     @Autowired
     PermissionCostumerDAO permissionCostumerDAO;
-    @Autowired
-    CostumerLoginDAO costumerLoginDAO;
-
 
     @RequestMapping(value = "/signUp",method = RequestMethod.POST)
     public String signUp(ModelMap modelMap, @ModelAttribute Costumer costumer,
@@ -36,7 +31,7 @@ public class SignUpController {
 
 
         //checks if there is another account with the same email if so go to SomeThingIsWrong and show the Massege
-        if (emailChecker.isExists(costumer.getEmail())){
+        if (emailChecker.isExistsCostumer(costumer.getEmail())){
             String htmlMassage="<h3>Your email is already used in another Account<h3/>"
                     +"<a href=\"views/Login.jsp\"> Login </a><br>"
                     +"<a href=\"views/SignUp.jsp\"> SignUp </a><br>";
@@ -51,7 +46,6 @@ public class SignUpController {
         costumer.setId(costumerDAO.selectIdByEmail(costumer.getEmail()));
         costumer.addPermission(PermissionType.LOGGED_IN_COSTUMER);
         permissionCostumerDAO.insert(costumer.getId(),PermissionType.LOGGED_IN_COSTUMER);
-        costumerLoginDAO.insert(costumer,new Date());
 
         //start a session
         HttpSession session=request.getSession(true);

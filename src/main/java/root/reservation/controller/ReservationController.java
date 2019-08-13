@@ -18,9 +18,9 @@ import java.util.Date;
 public class ReservationController {
 
     @Autowired
-    FindRoomService findRoomControl;
+    FindRoomService findRoomService;
     @Autowired
-    ReservationService reservationControl;
+    ReservationService reservationService;
 
 
     @RequestMapping(value = "/find", method = RequestMethod.GET)
@@ -31,7 +31,7 @@ public class ReservationController {
 
         // session
         HttpSession session= request.getSession(true);
-        modelAndView = findRoomControl.findRoom(toDate,fromDate,request,modelAndView);
+        modelAndView = findRoomService.findRoom(toDate,fromDate,request,modelAndView);
 
 
         return modelAndView;
@@ -44,7 +44,7 @@ public class ReservationController {
             @RequestParam String roomKind
             , HttpServletRequest request, ModelAndView modelAndView){
         HttpSession httpSession=request.getSession(true);
-        modelAndView = reservationControl.reserve(roomKind,request,modelAndView);
+        modelAndView = reservationService.reserve(roomKind,request,modelAndView);
 
         return modelAndView;
     }

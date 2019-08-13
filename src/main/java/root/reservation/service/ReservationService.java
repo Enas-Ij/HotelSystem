@@ -84,7 +84,7 @@ public class ReservationService {
             return roomNumber;
         }
         reservationDAO.insert(costumer, roomNumber, fromDate, toDate);
-        costumer.setReservationIdRoomMap(reservationDAO.selectReservedRooms(costumer));
+        costumer.setReservationIdRoomMap(reservationDAO.selectReservedRooms(costumer.getId()));
         addPermission(session);
         return roomNumber;
 

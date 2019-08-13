@@ -29,16 +29,16 @@ http://www.springframework.org/schema/mvc/spring-mvc.xsd">
         <property name="dataSource" ref="dataSourceBean"/>
     </bean>
 
-    <bean id="costumerDAO" class="root.login.dao.CostumerDAO" autowire="byName"/>
+    <bean id="costumerDAO" class="root.login.Costumer.dao.CostumerDAO" autowire="byName"/>
     <bean id="permissionDAO" class="root.permission.dao.PermissionCostumerDAO" autowire="byName"/>
-    <bean id="costumerLoginDAO" class="root.login.dao.CostumerLoginDAO" autowire="byName"/>
     <bean id="roomDetailsDAO" class="root.reservation.room.dao.RoomDetailsDAO" autowire="byName"/>
     <bean id="roomsDAO" class="root.reservation.room.dao.RoomsDAO" autowire="byName"/>
     <bean id="reservationDAO" class="root.reservation.dao.ReservationDAO" autowire="byName"/>
     <bean id="menuDAO" class="root.restaurant.menu.dao.MenuDAO" autowire="byName"/>
     <bean id="orderDAO" class="root.restaurant.order.dao.OrderDAO" autowire="byName"/>
     <bean id="orderItemsDAO" class="root.restaurant.order.dao.OrderItemsDAO" autowire="byName"/>
-
+    <bean id="employeeDao" class="root.login.Employee.dao.EmployeeDao" autowire="byName"/>
+    <bean id="permissionEmployeeDao" class="root.permission.dao.PermissionEmployeeDao" autowire="byName"/>
 
 
     <bean id="emailChecker" class="root.checkers.EmailChecker" autowire="byName"/>
@@ -53,12 +53,14 @@ http://www.springframework.org/schema/mvc/spring-mvc.xsd">
     <bean id="availableRooms" class="root.reservation.room.AvailableRooms" autowire="byName"/>
     <bean id="menu" class="root.restaurant.Menu" autowire="byName"/>
 
-    <bean id="findRoomControl" class="root.reservation.service.FindRoomService" autowire="byName"/>
-    <bean id="reservationControl" class="root.reservation.service.ReservationService" autowire="byName"/>
+    <bean id="findRoomService" class="root.reservation.service.FindRoomService" autowire="byName"/>
+    <bean id="reservationService" class="root.reservation.service.ReservationService" autowire="byName"/>
     <bean id="viewReservedRoomsControl" class="root.reservation.reserved.rooms.service.ViewReservedRoomsService" autowire="byName"/>
     <bean id="restaurantControl" class="root.restaurant.service.RestaurantService" autowire="byName"/>
     <bean id="orderPriceControl" class="root.restaurant.order.service.OrderPriceService" autowire="byName"/>
     <bean id="orderControl" class="root.restaurant.order.service.OrderService" autowire="byName"/>
+    <bean id="costumerLoginService" class="root.login.Costumer.service.CostumerLoginService" autowire="byName"/>
+    <bean id="employeeLoginService" class="root.login.Employee.service.EmployeeLoginService" autowire="byName"/>
 
 
     <bean id="orderPriceCalculator" class="root.restaurant.order.OrderPriceCalculator" autowire="byName" />

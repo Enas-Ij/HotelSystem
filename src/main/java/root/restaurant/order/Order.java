@@ -8,6 +8,7 @@ public class Order {
     private int orderId;
     private Map<String, Integer> itemQuantityMap;
     private int costumerId;
+    private int reservationId;
     private Float totalWithoutTax;
     private Float totalWithTax;
     private static final Float saleTaxRatio =0.16f;
@@ -69,6 +70,14 @@ public class Order {
 
     public static Float getServiceTaxRatio() {
         return serviceTaxRatio;
+    }
+
+    public int getReservationId() {
+        return reservationId;
+    }
+
+    public void setReservationId(int reservationId) {
+        this.reservationId = reservationId;
     }
 
     public Map<String, Integer> getItemQuantityMap() {

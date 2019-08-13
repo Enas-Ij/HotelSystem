@@ -1,6 +1,8 @@
 package root.restaurant.service;
 
 import root.permission.PermissionType;
+import root.reservation.dao.ReservationDAO;
+import root.reservation.room.Rooms;
 import root.restaurant.Menu;
 import root.actors.Costumer;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,11 +10,14 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.Map;
 
 public class RestaurantService {
 
     @Autowired
     Menu menu;
+    @Autowired
+    ReservationDAO reservationDAO;
 
     public ModelAndView restaurant(HttpServletRequest request, ModelAndView modelAndView){
 
@@ -23,7 +28,11 @@ public class RestaurantService {
             return modelAndView;
         }
 
-        modelAndView=addModel(modelAndView);
+        addMenu(modelAndView);
+
+        Costumer costumer=(Costumer)session.getAttribute("costumer");
+        addCurrentReservations(modelAndView, costumer.getId(), costumer.getReservationIdRoomMap());
+
         modelAndView.setViewName("Restaurant");
         return modelAndView;
 
@@ -56,15 +65,23 @@ public class RestaurantService {
     //Add the list that contains item names,
     // HashMap itemSection< Key:itemName, value:itemSection>, and
     // HashMap kindPriceMap< Key:RoomKind, value:RoomPrice> to the model
-    private ModelAndView addModel(ModelAndView modelAndView){
+    private void addMenu(ModelAndView modelAndView){
 
         menu.initializeMenu();
 
         modelAndView.addObject("itemName",menu.getItemName());
         modelAndView.addObject("itemPrice",menu.getItemPrice());
         modelAndView.addObject("itemSection",menu.getItemSection());
+    }
 
-        return modelAndView;
+    //list of current reservations
+    private void addCurrentReservations(ModelAndView modelAndView, Integer costumerId,
+                                        Map<Integer, String > reservationRoomMap){
+
+        modelAndView.addObject("currentReservations",
+                reservationDAO.selectCurrentReservationId(costumerId));
+        modelAndView.addObject("reservationRoomMap", reservationRoomMap);
+
     }
 
 

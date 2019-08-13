@@ -14,9 +14,8 @@ public class OrderPriceService {
 
     public String orderPrice(HttpServletRequest request){
 
-        Map<String,String> parameters= request.getParameterMap();
-        Float priceWithoutTax=calculatePriceWithoutTax(parameters, request);
-        Float priceWithTax=calculatePriceWithTax(parameters,request);
+        Float priceWithoutTax=calculatePriceWithoutTax( request);
+        Float priceWithTax=calculatePriceWithTax(request);
         Float tax=priceWithTax-priceWithoutTax;
 
         String responseString= "Price: "+ priceWithoutTax+" JOD<br>Tax: "+ tax+
@@ -26,14 +25,13 @@ public class OrderPriceService {
     }
 
 
-    /** calculate Price Without  Tax: finds the names of the menu items names from
-     *   the parameterMap that is submitted with the request,  gets the  quantity
-     *   ordered from each item from request, then calculate  the price Without Tax**/
+    /** calculate Price Without  Tax: gets the  quantity
+     *   ordered from each menu item from request, then calculate  the price Without Tax**/
     private Float calculatePriceWithoutTax
-            ( Map<String,String> parameters, HttpServletRequest request){
+            ( HttpServletRequest request){
 
         Float priceWithoutTax=0f;
-        for (String item: parameters.keySet()) {
+        for (String item:menu.getItemName()) {
 
             int itemQuantity= Integer.parseInt(request.getParameter(item));
             priceWithoutTax+=itemQuantity*menu.getItemPrice().get(item);
@@ -45,15 +43,14 @@ public class OrderPriceService {
 
 
 
-    /** calculate Price Without  Tax: finds the names of the menu items names from
-     *   the parameterMap that is submitted with the request,  gets the  quantity
-     *   ordered from each item from request, then calculate the price Without Tax
+    /** calculate Price Without  Tax:  gets the  quantity
+     *   ordered from each menu item , then calculate the price Without Tax
      *   and add the tax amount to it **/
     private Float calculatePriceWithTax
-            ( Map<String,String> parameters, HttpServletRequest request){
+            ( HttpServletRequest request){
 
         Float priceWithoutTax=0f;
-        for (String item: parameters.keySet()) {
+        for (String item: menu.getItemName()) {
 
             int itemQuantity= Integer.parseInt(request.getParameter(item));
             priceWithoutTax+= itemQuantity*menu.getItemPrice().get(item);

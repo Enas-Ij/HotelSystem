@@ -1,20 +1,21 @@
 <%--
   Created by IntelliJ IDEA.
   User: Home
-  Date: 7/27/2019
-  Time: 10:46 م
+  Date: 8/13/2019
+  Time: 10:17 PM
   To change this template use File | Settings | File Templates.
 --%>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Login</title>
+    <title>Employee Login</title>
 </head>
 <body>
-<h5>Login to your hotel account</h5><br><br>
+<h5>Login to your employee account</h5><br><br>
 ${error}<br>
 
-<form  name="LoginForm" action="/login" method="post" >
+<form  name="LoginForm" action="/loginEmployee" method="post" >
     Email <input type="email" name="email" required><br>
     <h6 id="emailNote"></h6>
     Password <input type="password" name="password" required><br>
@@ -22,7 +23,6 @@ ${error}<br>
     <input type="button" value="Login" onclick="checkFields()"><br>
 </form>
 
-<br> don't have an account? <a href=/views/SignUp.jsp> sign up </a><br>
 
 <script>
     function checkFields() {

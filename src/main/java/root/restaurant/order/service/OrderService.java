@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.Map;
+import java.util.Date;
 
 public class OrderService {
 
@@ -35,7 +35,11 @@ public class OrderService {
             return modelAndView;
         }
 
-        modelAndView= createOrder(request, modelAndView);
+        Order order= createOrder(request,
+                (Costumer) session.getAttribute("costumer"));
+
+        addOrderToModel(modelAndView, order);
+
         modelAndView.setViewName("ViewOrderBill");
 
         return modelAndView;
@@ -43,23 +47,21 @@ public class OrderService {
     }
 
 
-    //Creates order and call methods to store it the DB
-    private ModelAndView createOrder(HttpServletRequest request,
-                             ModelAndView modelAndView){
+    // Creates order and call methods to store it the DB
+    private Order createOrder(HttpServletRequest request, Costumer costumer){
 
-        Map<String,String> parameters= request.getParameterMap();
-        HttpSession session = request.getSession(false);
 
-        Costumer costumer= (Costumer) session.getAttribute("costumer");
         Order order= new Order();
 
         order.setCostumerId(costumer.getId());
 
-        for (String itemName:  parameters.keySet()  ) {
+        for (String itemName: menu.getItemName()  ) {
 
             int itemQuantity= Integer.parseInt(request.getParameter(itemName));
             order.addToItemQuantityMap(itemName, itemQuantity);
         }
+
+      order.setReservationId(Integer.parseInt( request.getParameter("reservationId")));
 
         order.setTotalWithoutTax(
                 orderPriceCalculator.calculateTotalWithoutTax
@@ -68,34 +70,41 @@ public class OrderService {
                 orderPriceCalculator.calculateTotalWithTax
                         (order.getItemQuantityMap()));
 
-        storeOrder(order, costumer);
-        order.setOrderId(getOrderId( order, costumer));
+        storeOrder(order, costumer.getId());
+        order.setOrderId(getOrderId( order, costumer.getId()));
         storeOrderItems(order);
 
-        modelAndView.addObject("order", order);
-        modelAndView.addObject("itemPriceMap", menu.getItemPrice());
-        return modelAndView;
+
+        return order;
     }
 
 
+
+    //return model and view object, add the item price map and the order to the model
+    private void addOrderToModel( ModelAndView modelAndView, Order order ){
+
+        modelAndView.addObject("order", order);
+        modelAndView.addObject("itemPriceMap", menu.getItemPrice());
+
+    }
+
+
+
+
     //Store the order in the DB (costumerId| totalPrice)
-    private int storeOrder(Order order, Costumer costumer){
+    private int storeOrder(Order order, Integer costumerId){
 
-        Integer reservationId=0;
-        for (Integer reservation: costumer.getReservationIdRoomMap().keySet()  ) {
-            reservationId=reservation;
-            break;
-        }
 
-        return orderDAO.insert(costumer ,reservationId, order.getTotalWithTax(), "waiting");
+        return orderDAO.insert(costumerId ,order.getReservationId(),
+                order.getTotalWithTax(), new Date(),"waiting");
 
     }
 
 
     // get orderId from DB
-    private int getOrderId(Order order, Costumer costumer){
+    private int getOrderId(Order order, Integer costumerId){
 
-        return orderDAO.selectOrderId(costumer, order.getTotalWithTax());
+        return orderDAO.selectOrderId(costumerId, order.getTotalWithTax());
     }
 
 

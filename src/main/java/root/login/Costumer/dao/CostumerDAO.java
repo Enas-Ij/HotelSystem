@@ -1,4 +1,4 @@
-package root.login.dao;
+package root.login.Costumer.dao;
 
 import root.actors.Costumer;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -143,7 +143,7 @@ public class CostumerDAO {
         );
 
        if (idList.size()==0){
-          int DOESNTEXIST=999999999;
+          int DOESNTEXIST=-1;
            return DOESNTEXIST;
        }
        return idList.get(0);
@@ -171,7 +171,7 @@ public class CostumerDAO {
         );
 
         if (passList.size()==0){
-            String DOESNTEXIST="999";
+            String DOESNTEXIST="";
             return DOESNTEXIST;
         }
         return passList.get(0);

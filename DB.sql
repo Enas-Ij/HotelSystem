@@ -18,11 +18,12 @@ loginTime datetime,
 logoutTime datetime,
 FOREIGN KEY (CostumerId) REFERENCES costumer(costumerid)
 );
-  
+
+drop table RoomDetails;
 create table RoomDetails(
 RoomKind varchar(128) primary key,
 price float,
-details varchar(1024)
+details text
 );
   
 insert into RoomDetails values("Standard",95,
@@ -65,23 +66,24 @@ insert into roomReservation (costumerId,RoomNumber,fromDate, toDate) values(1,"1
 
 create table Roles ( role_name varchar(128) primary key not null);
 insert into Roles values('General Manger');
-insert into Roles values('root.restaurant Manger');
-insert into Roles values('root.restaurant Employee');
-
+insert into Roles values('restaurant Manger');
+insert into Roles values('restaurant Employee');
 
 create table employee(
-employeeid int primary key auto_increment not null,
-employeeemail varchar(256)  not null,
+employeeId int primary key auto_increment not null,
+employeeEmail varchar(256)  not null,
 employeeFirstName varchar(128) not null,
 employeeLastName varchar(128) not null,
 employeePhone varchar(256) not null,
 employeePassword varchar(256) not null,
+salary float,
 employeeRole varchar(128) not null references Role(role_name)
 );
 
+
 create table RolePermission(
-employeeid int references Role(employee) ,
-employeeRole varchar(128) not null references Role(role_name)
+employeeRole varchar(128) not null references Role(role_name),
+permission varchar(128) not null
 );
 
 create table menu (
@@ -89,12 +91,12 @@ ItemName varchar(128) primary key  not null,
 ItemPrice float not null,
 section varchar(128) not null);
  
-drop table RestaurantOrder;
 create table RestaurantOrder(
 orderId int primary key auto_increment not null,
 costumerid int,
 ReservationId int references roomReservation(ReservationId),
 orderTotal Float,
+orderTime datetime,
 status varchar(64),
 FOREIGN KEY (costumerid) REFERENCES costumer(costumerid)
 );

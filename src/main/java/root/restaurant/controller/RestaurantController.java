@@ -39,7 +39,7 @@ public class RestaurantController {
     @RequestMapping(value = "/price", method = RequestMethod.GET)
     public void order(HttpServletRequest request, HttpServletResponse response) {
 
-       String responseString= orderPriceControl.orderPrice(request);
+        String responseString= orderPriceControl.orderPrice(request);
         try(PrintWriter printWriter= response.getWriter()){
 
             printWriter.write(responseString);
@@ -53,7 +53,7 @@ public class RestaurantController {
 
 
 
-    //Creates order and store it,
+    //Creates order and store it
     @RequestMapping(value = "/order", method = RequestMethod.GET)
     public ModelAndView order(HttpServletRequest request,
                               ModelAndView modelAndView){

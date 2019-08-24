@@ -19,7 +19,9 @@ Guest<br>
 
 <a href=/views/FindRoom.jsp> Find & Reserve </a><br>
 <a href=/viewReservedRooms> View your booked rooms</a><br>
-<a href=/ViewRestaurant> restaurant</a><br>
+<a href=/ViewRestaurant> Restaurant</a><br>
+<a href=/contact-service> Contact Costumer service</a><br>
+<a href=/chooseReservation>Check out</a><br>
 
 </body>
 </html>

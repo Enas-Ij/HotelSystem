@@ -50,7 +50,7 @@ public class PermissionEmployeeDao {
         //Transfer String Permissions to PermissionType
         List<PermissionType> permissionTypeList=new ArrayList<>();
         for (String permission: permissionList) {
-            permissionTypeList.add(permissionStringMapper.StringToPremission(permission));
+            permissionTypeList.add(permissionStringMapper.StringToPermission(permission));
         }
 
         return permissionTypeList;

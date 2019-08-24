@@ -18,9 +18,31 @@ public class MenuDAO {
     private static final String INSERT="insert into menu" +
             "(ItemName,ItemPrice,section ) " +
             " values(?,?,?)";
-    private static final String SELECT_ITEM="select ItemName from menu";
+    private static final String UPDATE_PRICE="update menu" +
+            " set ItemPrice=? where ItemName=?";
+    private static final String UPDATE_SECTION="update menu" +
+            " set section=? where ItemName=?";
+    private static final String SELECT_ITEM="select ItemName from menu where section!=\"removed\" ";
     private static final String SELECT_Price="select ItemPrice from menu where ItemName=?";
     private static final String SELECT_SECTION="select section from menu where ItemName=?";
+
+
+
+    public int insertItem(String name, Float price, String section){
+
+        return jdbcTemplate.update(INSERT, name, price, section);
+    }
+
+    public int updatePrice(String name, Float price){
+
+        return jdbcTemplate.update(UPDATE_PRICE, price, name );
+    }
+
+
+    public int updateSection(String name, String section){
+
+        return jdbcTemplate.update(UPDATE_SECTION, section, name);
+    }
 
 
     public List<String> selectItemName(){

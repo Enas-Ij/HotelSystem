@@ -30,7 +30,7 @@
 </head>
 <body>
 
-<h1> Hotel root.restaurant</h1><br> <br>
+<h1> Hotel restaurant</h1><br> <br>
 <h3>Order your meal</h3>
 
 <form id="form1" action="/order" method="get">

@@ -1,12 +1,12 @@
-package root.restaurant.service;
+package root.restaurant.Costumer.service;
 
+import root.actors.Employee;
 import root.permission.PermissionType;
 import root.reservation.dao.ReservationDAO;
-import root.reservation.room.Rooms;
-import root.restaurant.Menu;
 import root.actors.Costumer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.ModelAndView;
+import root.restaurant.menu.Menu;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -19,9 +19,9 @@ public class RestaurantService {
     @Autowired
     ReservationDAO reservationDAO;
 
-    public ModelAndView restaurant(HttpServletRequest request, ModelAndView modelAndView){
+    public ModelAndView restaurant(HttpServletRequest request, ModelAndView modelAndView) {
 
-        HttpSession session=request.getSession(true);
+        HttpSession session = request.getSession(false);
 
         if (!isAuthenticated(session)) {
             modelAndView.setViewName("Login");
@@ -30,7 +30,7 @@ public class RestaurantService {
 
         addMenu(modelAndView);
 
-        Costumer costumer=(Costumer)session.getAttribute("costumer");
+        Costumer costumer = (Costumer) session.getAttribute("costumer");
         addCurrentReservations(modelAndView, costumer.getId(), costumer.getReservationIdRoomMap());
 
         modelAndView.setViewName("Restaurant");
@@ -39,48 +39,50 @@ public class RestaurantService {
     }
 
 
-
-
     //check if the user is Authenticated to view her/his reserved rooms (has the following permissions: HAS_A_RESERVATION
     // &LOGGED_IN_COSTUMER)
-    private boolean isAuthenticated(HttpSession session){
+    private boolean isAuthenticated(HttpSession session) {
 
-        Costumer costumer = (Costumer) session.getAttribute("costumer");
-
-        if (costumer == null) {
+        if (session==null){
             return false;
         }
 
-        if (costumer.getPermissions().contains(PermissionType.HAS_A_RESERVATION) &&
-                costumer.getPermissions().contains(PermissionType.LOGGED_IN_COSTUMER)) {
+        Costumer costumer = (Costumer) session.getAttribute("costumer");
 
-            return true;
+        if (costumer != null) {
+
+            if (costumer.getPermissions().contains(PermissionType.HAS_A_RESERVATION) &&
+                    costumer.getPermissions().contains(PermissionType.LOGGED_IN_COSTUMER)) {
+
+                return true;
+            }
         }
 
-        return false;
-    }
 
+        return false;
+
+    }
 
 
     //Add the list that contains item names,
     // HashMap itemSection< Key:itemName, value:itemSection>, and
     // HashMap kindPriceMap< Key:RoomKind, value:RoomPrice> to the model
-    private void addMenu(ModelAndView modelAndView){
+    private void addMenu(ModelAndView modelAndView) {
 
         menu.initializeMenu();
 
-        modelAndView.addObject("itemName",menu.getItemName());
-        modelAndView.addObject("itemPrice",menu.getItemPrice());
-        modelAndView.addObject("itemSection",menu.getItemSection());
+        modelAndView.addObject("itemName", menu.getItemName());
+        modelAndView.addObject("itemPrice", menu.getItemPrice());
+        modelAndView.addObject("itemSection", menu.getItemSection());
     }
 
     //list of current reservations
     private void addCurrentReservations(ModelAndView modelAndView, Integer costumerId,
-                                        Map<Integer, String > reservationRoomMap){
+                                        Map<Integer, String> reservationIdRoomMap) {
 
         modelAndView.addObject("currentReservations",
                 reservationDAO.selectCurrentReservationId(costumerId));
-        modelAndView.addObject("reservationRoomMap", reservationRoomMap);
+        modelAndView.addObject("reservationRoomMap", reservationIdRoomMap);
 
     }
 

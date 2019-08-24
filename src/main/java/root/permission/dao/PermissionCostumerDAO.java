@@ -30,7 +30,7 @@ public class PermissionCostumerDAO {
 
     public int insert(int id,PermissionType permissionType) {
 
-       String permission= permissionStringMapper.PremissionToString(permissionType);
+       String permission= permissionStringMapper.PermissionToString(permissionType);
 
          return jdbcTemplate.update(INSERT,id,permission);
     }
@@ -40,7 +40,7 @@ public class PermissionCostumerDAO {
     /*REMOVES A single USER PERMISSIONS*/
     public int removePermission(int id,PermissionType permissionType) {
 
-       String permission= permissionStringMapper.PremissionToString(permissionType);
+       String permission= permissionStringMapper.PermissionToString(permissionType);
 
        return jdbcTemplate.update(DELETE,id,permission);
     }
@@ -73,7 +73,7 @@ public class PermissionCostumerDAO {
         //Transfer String Permissions to PermissionType
         List<PermissionType> permissionTypeList=new ArrayList<>();
         for (String permission: permissionList) {
-            permissionTypeList.add(permissionStringMapper.StringToPremission(permission));
+            permissionTypeList.add(permissionStringMapper.StringToPermission(permission));
         }
 
         return permissionTypeList;

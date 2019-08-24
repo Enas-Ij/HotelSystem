@@ -52,7 +52,7 @@ import javax.servlet.http.HttpSession;
             //check if email exist and  passwords match
             if (!emailChecker.isExistsCostumer(email) ||!passwordChecker.passwordCheckCostumer(email,password)){
 
-                modelMap.addAttribute("error"," Your root.login details don't seem right." +
+                modelMap.addAttribute("error"," Your login details don't seem right." +
                         " Check that your caps lock is off and try again. \n" +
                         "Careful! After five tries, you'll get locked out.");
                 return "Login";
@@ -74,3 +74,4 @@ import javax.servlet.http.HttpSession;
         }
 
     }
+

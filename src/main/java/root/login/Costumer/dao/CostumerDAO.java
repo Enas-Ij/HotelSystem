@@ -38,7 +38,7 @@ public class CostumerDAO {
     }
 
 
-    public int remove(String id) {
+    public int remove(Integer id) {
 
         return jdbcTemplate.update(DELETE,id) ;
     }
@@ -53,7 +53,7 @@ public class CostumerDAO {
 
 
 
-    public Costumer select(final String id) {
+    public Costumer select(final Integer id) {
 
        List<Costumer> costumerList= jdbcTemplate.query(SELECT
 
@@ -62,7 +62,7 @@ public class CostumerDAO {
 
                     @Override
                     public void setValues(PreparedStatement preparedStatement) throws SQLException {
-                        preparedStatement.setString(1,id);
+                        preparedStatement.setInt(1,id);
                     }
                     }
 
@@ -179,7 +179,4 @@ public class CostumerDAO {
 
 
 
-    public List<Costumer> selectList(String selectCriteria) {
-        return null;
-    }
 }

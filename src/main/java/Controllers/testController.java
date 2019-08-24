@@ -65,20 +65,27 @@ public class testController {
     }
 
     @RequestMapping("test4")
-    public  void test4(HttpServletResponse response,HttpServletRequest request){
+    public  void test4(HttpServletResponse response,HttpServletRequest request) {
 
-        Map<String,String> stringStringMap=request.getParameterMap();
-        Float txt=0f;
-        for (String par:stringStringMap.keySet() ) {
-             txt=Float.parseFloat(request.getParameter(par));
+        Map<String, String> stringStringMap = request.getParameterMap();
+        Float txt = 0f;
+        for (String par : stringStringMap.keySet()) {
+            txt = Float.parseFloat(request.getParameter(par));
         }
 
-        float price= txt+txt*.20f;
-        try(PrintWriter printWriter= response.getWriter()){
-        printWriter.write(price+"");}
-        catch (IOException e){
+        float price = txt + txt * .20f;
+        try (PrintWriter printWriter = response.getWriter()) {
+            printWriter.write(price + "");
+        } catch (IOException e) {
 
         }
 
     }
+        @RequestMapping("test5")
+        public  void test5(HttpServletRequest request){
+
+
+        }
+
+
 }

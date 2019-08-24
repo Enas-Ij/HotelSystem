@@ -20,7 +20,7 @@ public class EmployeeDao {
     private static final String INSERT="insert into employee " +
             "(employeeEmail, employeeFirstName, employeeLastName" +
             ",employeePhone, employeePassword, salary, employeeRole)" +
-            " values(?,?,?,?,?)";
+            " values(?,?,?,?,?,?,?)";
     private static final String UPDATE="update employee set employeeEmail=?" +
             ",employeeFirstName=?,employeeLastName=?,employeePhone=?,employeePassword=?" +
             ",salary=?, employeeRole=? where employeeId =?" ;
@@ -34,7 +34,8 @@ public class EmployeeDao {
     public int insert(Employee employee) {
 
         return jdbcTemplate.update(INSERT,employee.getEmail(),employee.getFirstName(),
-                employee.getLastName(),employee.getPhoneNum(),employee.getPassword());
+                employee.getLastName(),employee.getPhoneNum(),employee.getPassword(),
+                employee.getSalary(), employee.getRole());
     }
 
 

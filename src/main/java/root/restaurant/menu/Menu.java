@@ -1,5 +1,6 @@
-package root.restaurant;
+package  root.restaurant.menu;
 
+import root.permission.PermissionType;
 import root.restaurant.menu.dao.MenuDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -24,6 +25,18 @@ public class Menu {
 
         if (initCount == 0) {
             initCount++;
+            menuInitializer();
+        }
+        return;
+    }
+
+    //Only Mangers who has RESTAURANT_MANAGEMENT permission can  Reinitialize the menu
+    public void initializeMenu(List<PermissionType> permissionTypes){
+
+        if (permissionTypes.contains(PermissionType.RESTAURANT_MANAGEMENT)){
+
+            itemPrice= new HashMap<>();
+            itemSection= new HashMap<>();
             menuInitializer();
         }
         return;

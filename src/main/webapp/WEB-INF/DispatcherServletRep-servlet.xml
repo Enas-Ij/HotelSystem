@@ -29,6 +29,8 @@ http://www.springframework.org/schema/mvc/spring-mvc.xsd">
         <property name="dataSource" ref="dataSourceBean"/>
     </bean>
 
+
+
     <bean id="costumerDAO" class="root.login.Costumer.dao.CostumerDAO" autowire="byName"/>
     <bean id="permissionDAO" class="root.permission.dao.PermissionCostumerDAO" autowire="byName"/>
     <bean id="roomDetailsDAO" class="root.reservation.room.dao.RoomDetailsDAO" autowire="byName"/>
@@ -39,31 +41,48 @@ http://www.springframework.org/schema/mvc/spring-mvc.xsd">
     <bean id="orderItemsDAO" class="root.restaurant.order.dao.OrderItemsDAO" autowire="byName"/>
     <bean id="employeeDao" class="root.login.Employee.dao.EmployeeDao" autowire="byName"/>
     <bean id="permissionEmployeeDao" class="root.permission.dao.PermissionEmployeeDao" autowire="byName"/>
-
+    <bean id="messageDAO" class="root.messaging.dao.MessageDAO" autowire="byName"/>
 
     <bean id="emailChecker" class="root.checkers.EmailChecker" autowire="byName"/>
     <bean id="passwordChecker" class="root.checkers.PasswordChecker" autowire="byName"/>
     <bean id="loginTryTimesChecker" class="root.checkers.LoginTryTimesChecker" autowire="byName"/>
     <bean id="permissionStringMapper" class="root.permission.PermissionStringMapper" autowire="byName"/>
 
+    <bean id="checkAuthentication" class="root.Authentication.CheckAuthentication" autowire="byName"/>
+    <bean id="checkCostumerAuthentication" class="root.Authentication.CheckCostumerAuthentication" autowire="byName"/>
+    <bean id="orderManagementAuthentication" class="root.restaurant.employee.Common.OrderManagementAuthentication" autowire="byName"/>
+    <bean id="restaurantManagementAuthentication" class="root.restaurant.employee.Manger.RestaurantManagementAuthentication" autowire="byName"/>
+    <bean id="costumerServiceAuthentication" class="root.messaging.employee.CostumerServiceAuthentication" autowire="byName"/>
+
     <bean id="timeFormat" class="root.checkers.TimeFormat" autowire="byName"/>
 
 
     <bean id="rooms" class="root.reservation.room.Rooms" autowire="byName"/>
     <bean id="availableRooms" class="root.reservation.room.AvailableRooms" autowire="byName"/>
-    <bean id="menu" class="root.restaurant.Menu" autowire="byName"/>
+    <bean id="menu" class="root.restaurant.menu.Menu" autowire="byName"/>
 
     <bean id="findRoomService" class="root.reservation.service.FindRoomService" autowire="byName"/>
     <bean id="reservationService" class="root.reservation.service.ReservationService" autowire="byName"/>
     <bean id="viewReservedRoomsControl" class="root.reservation.reserved.rooms.service.ViewReservedRoomsService" autowire="byName"/>
-    <bean id="restaurantControl" class="root.restaurant.service.RestaurantService" autowire="byName"/>
-    <bean id="orderPriceControl" class="root.restaurant.order.service.OrderPriceService" autowire="byName"/>
-    <bean id="orderControl" class="root.restaurant.order.service.OrderService" autowire="byName"/>
+    <bean id="restaurantControl" class="root.restaurant.Costumer.service.RestaurantService" autowire="byName"/>
+    <bean id="orderPriceControl" class="root.restaurant.Costumer.service.OrderPriceService" autowire="byName"/>
+    <bean id="orderControl" class="root.restaurant.Costumer.service.OrderService" autowire="byName"/>
     <bean id="costumerLoginService" class="root.login.Costumer.service.CostumerLoginService" autowire="byName"/>
     <bean id="employeeLoginService" class="root.login.Employee.service.EmployeeLoginService" autowire="byName"/>
-
-
+    <bean id="viewOrdersService" class="root.restaurant.employee.service.ViewOrdersService" autowire="byName"/>
+    <bean id="orderDeliveredService" class="root.restaurant.employee.service.OrderDeliveredService" autowire="byName"/>
+    <bean id="getMenuService" class="root.restaurant.employee.Manger.service.GetMenuService" autowire="byName"/>
+    <bean id="menuEditingService" class="root.restaurant.employee.Manger.service.MenuEditingService" autowire="byName"/>
+    <bean id="messagingSystemService" class="root.messaging.costumer.service.MessagingSystemService" autowire="byName"/>
+    <bean id="submitMessageService" class="root.messaging.costumer.service.SubmitMessageService" autowire="byName"/>
+    <bean id="viewMessageService" class="root.messaging.employee.service.ViewMessageService" autowire="byName"/>
+    <bean id="updateMessageStatusService" class="root.messaging.employee.service.UpdateMessageStatusService" autowire="byName"/>
+    <bean id="checkOutInfoService" class="root.checkout.service.CheckOutInfoService" autowire="byName"/>
     <bean id="orderPriceCalculator" class="root.restaurant.order.OrderPriceCalculator" autowire="byName" />
+    <bean id="bringReservationsService" class="root.checkout.service.BringReservationsService" autowire="byName"/>
 
+    <bean id="billDao" class="root.bill.dao.BillDAO" autowire="byName"/>
+    <bean id="roomBill" class="root.bill.bills.RoomBill" autowire="byName"/>
+    <bean id="restaurantTotalBill" class="root.bill.bills.RestaurantTotalBill" autowire="byName"/>
 
 </beans>

@@ -12,7 +12,6 @@ import root.checkers.LoginTryTimesChecker;
 import root.checkers.PasswordChecker;
 import root.login.Employee.dao.EmployeeDao;
 import root.login.Employee.service.EmployeeLoginService;
-import root.permission.PermissionType;
 import root.permission.dao.PermissionEmployeeDao;
 
 import javax.servlet.http.HttpServletRequest;
@@ -62,8 +61,8 @@ public class EmployeeLoginController {
         Employee employee= employeeLoginService.login(email, password);
         session.setAttribute("employee", employee);
 
-        //******////***
-        modelMap.addAttribute("employeeFirstName", employee.getFirstName());
+        modelMap.addAttribute("role", employee.getRole());
+
         return "WelcomeLoggedInEmployee";
     }
 }

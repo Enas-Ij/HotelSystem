@@ -1,8 +1,8 @@
-package root.restaurant.controller;
+package root.restaurant.Costumer.controller;
 
-import root.restaurant.order.service.OrderService;
-import root.restaurant.order.service.OrderPriceService;
-import root.restaurant.service.RestaurantService;
+import root.restaurant.Costumer.service.OrderService;
+import root.restaurant.Costumer.service.OrderPriceService;
+import root.restaurant.Costumer.service.RestaurantService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,7 +24,7 @@ public class RestaurantController {
     @Autowired
     OrderService orderControl;
 
-    //viewing the root.restaurant and menu item and prices
+    //viewing the restaurant and menu item and prices
     @RequestMapping("/ViewRestaurant")
     public ModelAndView restaurant(HttpServletRequest request,
                                    ModelAndView modelAndView) {

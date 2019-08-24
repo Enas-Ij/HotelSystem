@@ -1,4 +1,4 @@
-package root.signup.controller;
+package root.signup.Costumer.controller;
 
 import root.checkers.EmailChecker;
 import root.permission.PermissionType;

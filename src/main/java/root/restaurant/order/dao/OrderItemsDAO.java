@@ -8,6 +8,7 @@ import org.springframework.jdbc.core.RowMapper;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -22,9 +23,10 @@ public class OrderItemsDAO {
             "(orderId,ItemName, quantity ) " +
             " values(?,?,?)";
 
-    private static final String SELECT= "select ItemName from OrderItems where" +
-            "orderId=?";
-
+    private static final String SELECT_ITEMS = "select ItemName from OrderItems where" +
+            " orderId=?";
+    private static final String SELECT_QUANTITY = "select quantity from OrderItems where" +
+            " orderId=? and ItemName=?";
 
 
     public int insert(int orderId, Map<String, Integer> itemQuantityMap){
@@ -47,7 +49,7 @@ public class OrderItemsDAO {
 
     public List<String> selectOrderItems(final int orderId){
 
-        List<String> itemList= jdbcTemplate.query(SELECT
+        List<String> itemList= jdbcTemplate.query(SELECT_ITEMS
 
 
                 , new PreparedStatementSetter() {
@@ -74,6 +76,40 @@ public class OrderItemsDAO {
     }
 
 
+    public Map<String, Integer> selectOrderItemsQuantity(final int orderId){
+
+        List<String> itemList= selectOrderItems(orderId);
+        Map<String, Integer> orderItemsQuantity= new HashMap<>();
+
+        for (final String item : itemList) {
+            List<Integer> itemQuantity= jdbcTemplate.query(SELECT_QUANTITY
+
+
+                    , new PreparedStatementSetter() {
+
+                        @Override
+                        public void setValues(PreparedStatement preparedStatement) throws SQLException {
+                            preparedStatement.setInt(1, orderId);
+                            preparedStatement.setString(2, item);
+                        }
+                    }
+
+
+                    ,new RowMapper<Integer>() {
+
+                        @Override
+                        public Integer mapRow(ResultSet resultSet, int i) throws SQLException {
+                            Integer quantity =resultSet.getInt("quantity");
+                            return quantity;
+                        }}
+
+            );
+
+            orderItemsQuantity.put(item, itemQuantity.get(0));
+        }
+
+        return orderItemsQuantity;
+    }
 
     }
 

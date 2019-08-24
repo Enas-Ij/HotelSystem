@@ -19,7 +19,6 @@ logoutTime datetime,
 FOREIGN KEY (CostumerId) REFERENCES costumer(costumerid)
 );
 
-drop table RoomDetails;
 create table RoomDetails(
 RoomKind varchar(128) primary key,
 price float,
@@ -68,6 +67,7 @@ create table Roles ( role_name varchar(128) primary key not null);
 insert into Roles values('General Manger');
 insert into Roles values('restaurant Manger');
 insert into Roles values('restaurant Employee');
+insert into Roles values('Costumer Service Employee');
 
 create table employee(
 employeeId int primary key auto_increment not null,
@@ -85,6 +85,15 @@ create table RolePermission(
 employeeRole varchar(128) not null references Role(role_name),
 permission varchar(128) not null
 );
+insert into RolePermission values('General Manger', 'ORDER_MANAGEMENT');
+insert into RolePermission values('General Manger', 'RESTAURANT_MANAGEMENT');
+insert into RolePermission values('General Manger', 'COSTUMER_SERVICE');
+insert into RolePermission values('restaurant Employee', 'ORDER_MANAGEMENT');
+insert into RolePermission values('restaurant Manger', 'ORDER_MANAGEMENT');
+insert into RolePermission values('restaurant Manger', 'RESTAURANT_MANAGEMENT');
+insert into RolePermission values('Costumer Service Employee', 'COSTUMER_SERVICE');
+
+
 
 create table menu (
 ItemName varchar(128) primary key  not null,
@@ -97,7 +106,8 @@ costumerid int,
 ReservationId int references roomReservation(ReservationId),
 orderTotal Float,
 orderTime datetime,
-status varchar(64),
+deliveryTime datetime,
+orderStatus varchar(64),
 FOREIGN KEY (costumerid) REFERENCES costumer(costumerid)
 );
 
@@ -109,9 +119,27 @@ FOREIGN KEY (ItemName) REFERENCES menu(ItemName)
 );
 
  insert into menu values("hamburger",2,"sandwichs");
-  insert into menu values("club sandwich",7,"sandwichs");
-  insert into menu values("water",1,"bevreges");
-  insert into menu values("soda",2,"bevreges");
-  insert into menu values("mac and cheese ",1,"kids");
+ insert into menu values("club sandwich",7,"sandwichs");
+ insert into menu values("water",1,"beverages");
+ insert into menu values("soda",2,"beverages");
+ insert into menu values("mac and cheese ",1,"kids");
 
 
+CREATE TABLE message( 
+messageId int auto_increment primary key,
+reservationId int REFERENCES roomReservation(reservationId),
+messageContent text, 
+submittingTime datetime,
+messageStatus varchar(128)
+); 
+
+
+CREATE TABLE bill(
+ReservationID int REFERENCES roomReservation(ReservationId),
+roomCharge FLOAT,
+otherCharges FLOAT,
+totalCharge FLOAT);
+
+
+
+  

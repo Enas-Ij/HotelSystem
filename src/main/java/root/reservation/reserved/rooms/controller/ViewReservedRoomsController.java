@@ -22,6 +22,7 @@ public class ViewReservedRoomsController {
 
         modelAndView= viewReservedRoomsControl.viewReservedRooms(request,modelAndView);
 
+
         return modelAndView;
     }
 }

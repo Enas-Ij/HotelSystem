@@ -1,7 +1,7 @@
 package root.restaurant.order;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import root.restaurant.Menu;
+import root.restaurant.menu.Menu;
 
 import java.util.Map;
 

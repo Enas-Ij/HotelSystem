@@ -22,6 +22,8 @@ public class ReservationDAO {
     private static final String INSERT=" insert into roomReservation " +
             "(costumerId,RoomNumber,fromDate,toDate)" +
             " values(?,?,?,?)";
+    private static final String UPDATE_TO_DATE=" update roomReservation set toDate=? where" +
+            " ReservationId=?";
 
     private static final String CANCEL="delete from roomReservation" +
             "where costumerId =? and rooRoomNumber=? and fromDate=? and toDate=?";
@@ -41,8 +43,8 @@ public class ReservationDAO {
             "select DISTINCT fromDate from roomReservation where ReservationId=?";
     private static final String SLCT_CSTMER_CURRENT_ROOMS="select DISTINCT ReservationId from roomReservation " +
             "where costumerId=? and fromDate<=? and toDate>=?";
-
-
+    private static final String SLCT_CSTMER_ID="select DISTINCT costumerId from roomReservation " +
+            "where ReservationId=?";
 
     //insert new reservation to the db
     public int insert(Costumer costumer, String roomNum, Date fromDate, Date toDate){
@@ -52,6 +54,16 @@ public class ReservationDAO {
 
         return jdbcTemplate.update(INSERT, costumer.getId(),roomNum, sqlFromDate, sqlToDate);
     }
+
+
+    //update reservation toDate
+    public int updateToDate(Integer reservationId, Date toDate){
+
+        java.sql.Date sqlToDate= new java.sql.Date(toDate.getTime());
+
+        return jdbcTemplate.update(UPDATE_TO_DATE, sqlToDate, reservationId);
+    }
+
 
 
     //delete reservation to the db
@@ -146,6 +158,22 @@ public class ReservationDAO {
         final List<Integer> reservations= selectReservationId(costumerId) ;
 
         for (final Integer reservation : reservations ) {
+
+            reservationIdRoomMap.put(reservation, selectReservationRoomNum(reservation));
+        }
+
+
+
+
+        return reservationIdRoomMap;
+    }
+
+
+
+    //return room number for each reservation
+    public String selectReservationRoomNum(final Integer reservationId){
+
+
             List<String> roomList=  jdbcTemplate.query(SLCT_RSRVTION_ROOM
 
 
@@ -153,7 +181,7 @@ public class ReservationDAO {
 
                         @Override
                         public void setValues(PreparedStatement preparedStatement) throws SQLException {
-                            preparedStatement.setInt(1,reservation);
+                            preparedStatement.setInt(1,reservationId);
 
                         }
                     }
@@ -169,13 +197,11 @@ public class ReservationDAO {
 
             );
 
-            reservationIdRoomMap.put(reservation, roomList.get(0));
-        }
+            if (roomList.size()==0){
+                return "";}
 
+            return roomList.get(0);
 
-
-
-        return reservationIdRoomMap;
     }
 
 
@@ -287,5 +313,45 @@ public class ReservationDAO {
 
 
         return reservations;
+    }
+
+
+
+
+
+    public Integer selectCostumerId(final Integer reservationId){
+
+
+
+        List<Integer> costumerIdList= jdbcTemplate.query(SLCT_CSTMER_ID
+
+
+                , new PreparedStatementSetter() {
+
+                    @Override
+                    public void setValues(PreparedStatement preparedStatement) throws SQLException {
+                        preparedStatement.setInt(1,reservationId);
+
+
+
+                    }
+                }
+
+
+                ,new RowMapper<Integer>() {
+
+                    @Override
+                    public Integer mapRow(ResultSet resultSet, int i) throws SQLException {
+                        Integer costumerId=resultSet.getInt("costumerId");
+                        return costumerId;
+                    }}
+
+        );
+
+
+        if (costumerIdList.size()==0){
+            return -1;
+        }
+        return costumerIdList.get(0);
     }
 }

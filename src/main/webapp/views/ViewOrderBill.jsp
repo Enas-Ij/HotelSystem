@@ -10,7 +10,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Order Bill</title>
+    <title>Order bill</title>
 </head>
 <body>
 <h1>Hotel</h1><br> <br>

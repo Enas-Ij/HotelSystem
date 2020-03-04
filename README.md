@@ -10,11 +10,16 @@
 
 # Porject Description:
 
+The project is web-based hotel management system. The focus of this project is on the **backend** part. The system provides the following services:
 
-A web-based hotel management system that has following operations :
-Costumer: Sign up, Login, Finding available rooms in certain dates and details, Room reservation, Ordering from the hotel restaurant menu, Message costumer service, Check out, Viewing his/her bill.
-Employee (Depending on the role): Login, View costumers restaurant orders and manage them, View costumers’ messages and manage them.
-Using: Java, Spring MVC, Spring JDBC, HTML, JavaScript, SQL, MySQL, Maven, Clean Code, SOLID principle.
+- Costumer: Sign up, Login, Finding available rooms in certain dates and details, Room reservation, Ordering from the hotel restaurant menu, Messaging costumer service, Check out, Viewing his/her bill.
+
+- Employee (Restuarant Employee): Login, View costumers restaurant orders and manage them.
+
+- Employee (Costumar service Employee): Login,  View costumers’ messages and manage them.
+
+- Employee (General Manager): Login, has access to the restuarant and costumar service, add new employees.
+
 
 # Technologies:
 
@@ -27,6 +32,7 @@ Using: Java, Spring MVC, Spring JDBC, HTML, JavaScript, SQL, MySQL, Maven, Clean
 - JavaScript
 - AJAX
 - Maven
+- Apache Tomcat
 
 # How To Run
 
@@ -36,3 +42,4 @@ In order to run the project correctly please do the following:
 
 2- Change the database connection information in DispatcherServletRep-servlet.xml in the bean which id="dataSourceBean"
 
+3-

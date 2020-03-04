@@ -3,7 +3,6 @@ package root.messaging.costumer.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.ModelAndView;
 import root.Authentication.CheckCostumerAuthentication;
-import root.actors.Costumer;
 import root.messaging.dao.MessageDAO;
 
 import javax.servlet.http.HttpSession;

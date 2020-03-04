@@ -70,6 +70,7 @@ insert into Roles values('restaurant Employee');
 insert into Roles values('Costumer Service Employee');
 
 create table employee(
+
 employeeId int primary key auto_increment not null,
 employeeEmail varchar(256)  not null,
 employeeFirstName varchar(128) not null,
@@ -78,6 +79,7 @@ employeePhone varchar(256) not null,
 employeePassword varchar(256) not null,
 salary float,
 employeeRole varchar(128) not null references Role(role_name)
+
 );
 
 
@@ -139,7 +141,3 @@ ReservationID int REFERENCES roomReservation(ReservationId),
 roomCharge FLOAT,
 otherCharges FLOAT,
 totalCharge FLOAT);
-
-
-
-  
